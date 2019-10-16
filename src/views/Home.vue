@@ -9,13 +9,28 @@
       </el-aside>
       <el-container :style="{ height: 'calc(100% - 60px)'}">
         <el-header class="s-header">
-          <div class="d-flex align-items_center">
+          <el-row :gutter="20" type="flex" align="middle">
+            <el-col :span="4">
+              <span
+                class="cur-pointer p-l-19 fz-24 l-h-60"
+                @click="isCollapse = !isCollapse"
+                :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
+              ></span>
+            </el-col>
+            <el-col :span="20">
+              <HeaderRight class="w-100" />
+            </el-col>
+          </el-row>
+          <!-- <div class="d-flex align-items_center">
             <span
               class="cur-pointer p-l-19 fz-24 l-h-60"
               @click="isCollapse = !isCollapse"
               :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
             ></span>
-          </div>
+            <div class="flex-1">
+              <HeaderRight class="w-100" />
+          </div>-->
+          <!-- </div> -->
         </el-header>
         <el-main>
           <router-view />
@@ -27,11 +42,13 @@
 
 <script>
 import MyMenu from '@/components/Layout/Menu.vue';
+import HeaderRight from '@/components/Layout/HeaderRight.vue';
 
 export default {
   name: 'home',
   components: {
     MyMenu,
+    HeaderRight,
   },
   data() {
     return {
