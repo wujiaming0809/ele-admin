@@ -3,8 +3,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './global.scss';
 import App from './App.vue';
-import router from './router';
-import store from './store';
+import router from './router/index';
+import store from './store/store';
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

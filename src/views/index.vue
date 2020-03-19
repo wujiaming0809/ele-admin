@@ -7,33 +7,22 @@
       >
         <MyMenu :isCollapse="isCollapse" />
       </el-aside>
-      <el-container :style="{ height: 'calc(100% - 60px)'}">
+      <el-container>
         <el-header class="s-header">
-          <el-row :gutter="20" type="flex" align="middle">
-            <el-col :span="4">
+          <div class="header-box">
+            <div class="header-box__left">
               <span
                 class="cur-pointer p-l-19 fz-24 l-h-60"
                 @click="isCollapse = !isCollapse"
                 :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
               ></span>
-            </el-col>
-            <el-col :span="20">
-              <HeaderRight class="w-100" />
-            </el-col>
-          </el-row>
-          <!-- <div class="d-flex align-items_center">
-            <span
-              class="cur-pointer p-l-19 fz-24 l-h-60"
-              @click="isCollapse = !isCollapse"
-              :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
-            ></span>
-            <div class="flex-1">
-              <HeaderRight class="w-100" />
-          </div>-->
-          <!-- </div> -->
+            </div>
+            <div class="header-box__center"></div>
+            <div class="header-box__right"></div>
+          </div>
         </el-header>
         <el-main>
-          <router-view />
+          <router-view class="h-100" />
         </el-main>
       </el-container>
     </el-container>
@@ -42,13 +31,13 @@
 
 <script>
 import MyMenu from '@/components/Layout/Menu.vue';
-import HeaderRight from '@/components/Layout/HeaderRight.vue';
+// import HeaderRight from '@/components/Layout/HeaderRight.vue';
 
 export default {
   name: 'home',
   components: {
     MyMenu,
-    HeaderRight,
+    // HeaderRight,
   },
   data() {
     return {
@@ -57,6 +46,21 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+  .header-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    .header-box__left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 80px;
+    }
+    .header-box__center {
+    }
+  }
+</style>
 <style lang="scss">
 .home {
   .s-header {
