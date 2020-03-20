@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "new:view": "node ./script/generateView/index"
+    "create -g": "node ./generate/index"
   },
   "dependencies": {
     "core-js": "^2.6.5",
