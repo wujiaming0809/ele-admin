@@ -1,12 +1,10 @@
-/**
- * Created by wujiaming on 2020/3/13
- * */
+/* eslint-disable */
 
 const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
 
-const resolve = (...file) => path.resolve(__dirname, ...file);
+const pathResolve = (...file) => path.resolve(__dirname, ...file);
 const log = message => console.log(chalk.green(`${message}`));
 const successLog = message => console.log(chalk.blue(`${message}`));
 const errorLog = error => console.log(chalk.red(`${error}`));
@@ -47,6 +45,15 @@ const mkDirs = (directory, callback) => {
   }
 };
 
+// 路由文件创建成功后往index.js引用生成的路由文件
+const writeRouter = (name) => {
+  const data = fs.readFileSync(pathResolve('../src/router', 'index.js'), 'utf8').split('\n');
+  const importIndex = data.indexOf('Vue.use(Router);');
+  data.splice(importIndex - 1, 0, `import ${name} from './${name}';`);
+  data.splice(data.length - 7, 0, `        ${name},`);
+  fs.writeFileSync(pathResolve('../src/router', 'index.js'), data.join('\n'), 'utf8');
+};
+
 const dotExistDirectoryCreate = directory => new Promise((resolve) => {
   mkDirs(directory, () => {
     resolve(true);
@@ -59,12 +66,12 @@ process.stdin.on('data', async (chunk) => {
   // 组件名称
   const inputName = String(chunk).trim().toString();
   // 创建路径（文件夹）
-  const componentPath = resolve('../src/views', inputName);
-  const apiPath = resolve('../src/api', inputName);
+  const componentPath = pathResolve('../src/views', inputName);
+  const apiPath = pathResolve('../src/api', inputName);
   // 创建文件
-  const vueFile = resolve(componentPath, 'index.vue');
-  const apiFile = resolve(apiPath, `${inputName}.js`);
-  const routerFile = resolve('../src/router', `${inputName}.js`);
+  const vueFile = pathResolve(componentPath, 'index.vue');
+  const apiFile = pathResolve(apiPath, `${inputName}.js`);
+  const routerFile = pathResolve('../src/router', `${inputName}.js`);
   // 判断文件夹是否存在
   const hasComponentExists = fs.existsSync(componentPath);
   const hasApiExists = fs.existsSync(apiPath);
@@ -95,6 +102,8 @@ process.stdin.on('data', async (chunk) => {
     await generateFile(apiFile, apiTemplate(componentName));
     log(`正在生成 路由 文件 ${routerFile}`);
     await generateFile(routerFile, routerTemplate(componentName));
+    log(`往index.js写入路由 ${routerFile}`);
+    writeRouter(inputName);
     successLog('生成成功');
   } catch (e) {
     errorLog(e.message);
