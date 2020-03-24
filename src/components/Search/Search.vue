@@ -198,6 +198,7 @@
           </el-button>
           <el-button type="primary" icon="el-icon-search">搜索</el-button>
           <el-button icon="el-icon-delete">清空</el-button>
+          <el-button type="primary" icon="el-icon-delete">个性化</el-button>
         </div>
       </div>
       <div
@@ -205,7 +206,7 @@
         :style="{
           padding: showSearch ? '10px 20px' : '0',
           borderTop: showSearch ? '1px solid #EBEEF5' : '',
-          display: showSearch ? 'block' : 'none'
+          display: showSearch ? 'flex' : 'none'
         }"
       >
         <template v-for="(item, index) in message">

@@ -22,7 +22,8 @@
           </div>
         </el-header>
         <el-main>
-          <router-view class="h-100" />
+          <tabs></tabs>
+          <router-view/>
         </el-main>
       </el-container>
     </el-container>
@@ -31,12 +32,14 @@
 
 <script>
 import MyMenu from '@/components/Layout/Menu.vue';
+import Tabs from '@/components/Layout/Tabs';
 // import HeaderRight from '@/components/Layout/HeaderRight.vue';
 
 export default {
   name: 'home',
   components: {
     MyMenu,
+    Tabs,
     // HeaderRight,
   },
   data() {
@@ -47,25 +50,27 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-  .header-box {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    .header-box__left {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 80px;
+  .home {
+    & /deep/ .s-header {
+      padding: 0;
+      background-color: white;
+      box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     }
-    .header-box__center {
+    .header-box {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      .header-box__left {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80px;
+      }
+      .header-box__center {
+      }
+    }
+    & /deep/ .el-main {
+      padding-top: 0;
     }
   }
-</style>
-<style lang="scss">
-.home {
-  .s-header {
-    padding: 0 !important;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-  }
-}
 </style>

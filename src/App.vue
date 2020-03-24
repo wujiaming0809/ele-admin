@@ -10,6 +10,7 @@ body,
 #app {
   height: 100%;
   overflow: hidden;
+  background-color: #f5f7f9;
 }
 * {
   margin: 0;
