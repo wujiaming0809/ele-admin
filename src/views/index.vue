@@ -5,9 +5,9 @@
         :width="isCollapse ? '64px' : '240px'"
         :style="{ height: '100%', overflowY: 'auto', boxShadow: '2px 0 6px rgba(0,21,41,.35)' }"
       >
-        <MyMenu :isCollapse="isCollapse" />
+        <Menus :isCollapse="isCollapse" />
       </el-aside>
-      <el-container>
+      <el-container style="height: 100%">
         <el-header class="s-header">
           <div class="header-box">
             <div class="header-box__left">
@@ -21,8 +21,8 @@
             <div class="header-box__right"></div>
           </div>
         </el-header>
+        <Tabs />
         <el-main>
-          <tabs></tabs>
           <router-view/>
         </el-main>
       </el-container>
@@ -31,14 +31,14 @@
 </template>
 
 <script>
-import MyMenu from '@/components/Layout/Menu.vue';
+import Menus from '@/components/Layout/Menu.vue';
 import Tabs from '@/components/Layout/Tabs';
 // import HeaderRight from '@/components/Layout/HeaderRight.vue';
 
 export default {
   name: 'home',
   components: {
-    MyMenu,
+    Menus,
     Tabs,
     // HeaderRight,
   },
@@ -47,6 +47,7 @@ export default {
       isCollapse: false,
     };
   },
+  methods: {},
 };
 </script>
 <style scoped lang="scss">
@@ -66,11 +67,10 @@ export default {
         top: 0;
         width: 80px;
       }
-      .header-box__center {
-      }
     }
     & /deep/ .el-main {
-      padding-top: 0;
+      background-color: white;
+      margin: 0 20px;
     }
   }
 </style>
