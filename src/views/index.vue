@@ -15,7 +15,8 @@
                 class="cur-pointer p-l-19 fz-24 l-h-60"
                 @click="isCollapse = !isCollapse"
                 :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
-              ></span>
+              >
+              </span>
             </div>
             <div class="header-box__center"></div>
             <div class="header-box__right"></div>

@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     createTabs(data) {
-      const hasTab = this.editableTabs.some(item => item.title === data.meta.title);
+      const hasTab = this.editableTabs.some(item => item.path === data.path);
       if (!hasTab) {
         this.editableTabs.push({ title: data.meta.title, path: data.path });
       }
@@ -54,11 +54,11 @@ export default {
       }
     },
     removeTab(path) {
-      const arr = this.editableTabs;
+      const index = this.editableTabs.findIndex(item => item.path === path);
       this.editableTabs = this.editableTabs.filter(item => item.path !== path);
-      if (arr[arr.length - 1].path === path) {
-        this.editableTabsValue = this.editableTabs[this.editableTabs.length - 1].path;
-        this.$router.push(this.editableTabs[this.editableTabs.length - 1].path);
+      if (this.$route.path === path) {
+        this.editableTabsValue = this.editableTabs[index - 1].path;
+        this.$router.push(this.editableTabs[index - 1].path);
       }
     },
     handleDropdown(command) {
@@ -66,13 +66,21 @@ export default {
         if (command === 'closeAll') {
           this.editableTabs = [{ title: '首页', path: '/home' }];
           this.editableTabsValue = '/home';
-          this.$router.push('/home');
-        } else if (command === 'closeOther') {
-          this.editableTabs = [
-            { title: '首页', path: '/home' },
-            { title: this.$route.meta.title, path: this.$route.path },
-          ];
-        } else {
+          if (this.$route.path !== '/' && this.$route.path !== '/home') {
+            this.$router.push('/home');
+          }
+        }
+        if (command === 'closeOther') {
+          if (this.$route.path === '/' || this.$route.path === '/home') {
+            this.editableTabs = [{ title: '首页', path: '/home' }];
+          } else {
+            this.editableTabs = [
+              { title: '首页', path: '/home' },
+              { title: this.$route.meta.title, path: this.$route.path },
+            ];
+          }
+        }
+        if (command === 'closeCurrent' && (this.$route.path !== '/' || this.$route.path !== '/home')) {
           const index = this.editableTabs.findIndex(item => item.title === this.$route.meta.title);
           this.editableTabsValue = this.editableTabs[index - 1].path;
           this.editableTabs = this.editableTabs.filter(item => item.title !== this.$route.meta.title);
